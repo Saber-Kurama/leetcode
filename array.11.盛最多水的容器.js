@@ -11,23 +11,19 @@
  */
 var maxArea = function(height) {
     // 容错处理
-    
-    // 双指针  收敛
-    let i = 0;
-    let j = height.length - 1;
-    let max = 0;
-    while(i < j) {
-        // 计算面积
-        const cmax = (j - i ) * Math.min(height[i], height[j]);
-        max = Math.max(max, cmax);
-        // 柱子低 的移动
-        if(height[i] > height[j]){
-            j--;
-        }else{
-            i++
+    let left = 0
+    let right = height.length - 1
+    let res = 0
+    while (left < right) {
+        let area = Math.min(height[left], height[right]) * (right - left)
+        if (area > res) res = area
+        if (height[left] > height[right]) {
+            right--
+        } else {
+            left++
         }
     }
-    return max
+    return res
 };
 
 console.log(maxArea([1, 1]))
